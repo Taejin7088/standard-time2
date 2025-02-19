@@ -1,23 +1,21 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import Todos from '../context/todosContext';
 
-const Form = ({ setTodos }) => {
+const Form = () => {
+  const { addTodo } = useContext(Todos);
   const [inputTodo, setInputTodo] = useState({ title: '', content: '' });
 
   const handleSubmit = (e) => {
     // TODO: 완료 처리
     e.preventDefault();
-    setTodos((prevTodos) => {
-      const tempTodos = [...prevTodos];
-      const todo = {
-        id: new Date().getTime(),
-        title: inputTodo.title,
-        content: inputTodo.content,
-        isDone: false,
-      };
-      tempTodos.push(todo);
-      return tempTodos;
-    });
+    const todo = {
+      id: new Date().getTime(),
+      title: inputTodo.title,
+      content: inputTodo.content,
+      isDone: false,
+    };
+    addTodo(todo);
   };
 
   return (

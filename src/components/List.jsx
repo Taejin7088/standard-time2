@@ -1,25 +1,18 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import Todos from '../context/todosContext';
+import { useContext } from 'react';
 
-const List = ({ todos, setTodos }) => {
+const List = () => {
+  const { todos, deleteTodo, doneTodo } = useContext(Todos);
+
   const handleDone = (id) => {
     // TODO: 완료 처리
-    const tmepTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.isDone = !todo.isDone;
-        return todo;
-      }
-      return todo;
-    });
-    setTodos(tmepTodos);
+    doneTodo(id);
   };
 
   const handleDelete = (id) => {
     // TODO: 삭제 처리
-    const tmepTodos = todos.filter((todo) => {
-      return todo.id !== id;
-    });
-    setTodos(tmepTodos);
+    deleteTodo(id);
   };
 
   return (
