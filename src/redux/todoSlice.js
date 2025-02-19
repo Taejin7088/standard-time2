@@ -13,8 +13,7 @@ const todos = createSlice({
     doneTodo: (state, { payload }) => {
       const tempTodos = state.map((todo) => {
         if (todo.id === payload) {
-          todo.isDone = !todo.isDone;
-          return todo;
+          return { ...todo, isDone: !todo.isDone };
         }
         return todo;
       });
