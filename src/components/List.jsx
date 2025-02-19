@@ -1,18 +1,23 @@
 import styled from 'styled-components';
-import Todos from '../context/todosContext';
-import { useContext } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTodo, doneTodo } from '../redux/todoSlice';
 
 const List = () => {
-  const { todos, deleteTodo, doneTodo } = useContext(Todos);
+  const todos = useSelector((state) => {
+    return state.todos;
+  });
+
+  const dispatch = useDispatch();
 
   const handleDone = (id) => {
     // TODO: 완료 처리
-    doneTodo(id);
+    dispatch(doneTodo(id));
   };
 
   const handleDelete = (id) => {
     // TODO: 삭제 처리
-    deleteTodo(id);
+    dispatch(deleteTodo(id));
   };
 
   return (

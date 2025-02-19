@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import Todos from '../context/todosContext';
+import { useDispatch } from 'react-redux';
+import { addTodo } from '../redux/todoSlice';
 
 const Form = () => {
-  const { addTodo } = useContext(Todos);
+  const dispatch = useDispatch();
   const [inputTodo, setInputTodo] = useState({ title: '', content: '' });
 
   const handleSubmit = (e) => {
@@ -15,7 +16,7 @@ const Form = () => {
       content: inputTodo.content,
       isDone: false,
     };
-    addTodo(todo);
+    dispatch(addTodo(todo));
   };
 
   return (
