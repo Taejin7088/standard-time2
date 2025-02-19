@@ -1,45 +1,48 @@
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
-const List = () => {
-  // TODO: 샘플 데이터를 지우고 작성해주세요.
-  const SAMPLE_DATA = [
-    {
-      id: 1,
-      title: "할 일 1",
-      content: "할 일 1 내용",
-      isDone: false,
-    },
-    {
-      id: 2,
-      title: "할 일 2",
-      content: "할 일 2 내용",
-      isDone: true,
-    },
-    {
-      id: 3,
-      title: "할 일 3",
-      content: "할 일 3 내용",
-      isDone: false,
-    },
-  ];
-
+const List = ({ todos, setTodos }) => {
   const handleDone = (id) => {
     // TODO: 완료 처리
+    const tmepTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.isDone = !todo.isDone;
+        return todo;
+      }
+      return todo;
+    });
+    setTodos(tmepTodos);
   };
 
   const handleDelete = (id) => {
     // TODO: 삭제 처리
+    const tmepTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(tmepTodos);
   };
 
   return (
     <StyledList>
-      {SAMPLE_DATA.map((item) => (
+      {todos.map((item) => (
         <StyledListItem key={item.id}>
           <StyledTitle>{item.title}</StyledTitle>
           <StyledContent>{item.content}</StyledContent>
-          <StyledStatus>{item.isDone ? "완료" : "미완료"}</StyledStatus>
-          <StyledButton>{item.isDone ? "취소" : "완료"}</StyledButton>
-          <StyledButton>삭제</StyledButton>
+          <StyledStatus>{item.isDone ? '완료' : '미완료'}</StyledStatus>
+          <StyledButton
+            onClick={() => {
+              handleDone(item.id);
+            }}
+          >
+            {item.isDone ? '취소' : '완료'}
+          </StyledButton>
+          <StyledButton
+            onClick={() => {
+              handleDelete(item.id);
+            }}
+          >
+            삭제
+          </StyledButton>
         </StyledListItem>
       ))}
     </StyledList>
@@ -83,7 +86,7 @@ const StyledContent = styled.p`
 const StyledStatus = styled.p`
   margin: 5px 0;
   font-size: 14px;
-  color: ${(props) => (props.children === "완료" ? "green" : "red")};
+  color: ${(props) => (props.children === '완료' ? 'green' : 'red')};
 `;
 
 const StyledButton = styled.button`

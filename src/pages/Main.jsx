@@ -1,16 +1,19 @@
-import styled from "styled-components";
-import Form from "../components/Form";
-import List from "../components/List";
+import styled from 'styled-components';
+import Form from '../components/Form';
+import List from '../components/List';
+import { useState } from 'react';
 
 const MainPage = () => {
+  const [todos, setTodos] = useState([]);
+
   return (
     <StContainer>
       <StHeader>
         <h1>내일배움캠프 스탠다드반 투두리스트</h1>
       </StHeader>
       <StMain>
-        <Form />
-        <List />
+        <Form setTodos={setTodos} />
+        <List todos={todos} setTodos={setTodos} />
       </StMain>
       <StFooter>
         <p>Copyright 2025 스파르타 내일배움캠프</p>
